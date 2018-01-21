@@ -1,8 +1,8 @@
 {
-    "name": "my-electron-template",
+    "name": "deep-finance-chart",
     "version": "0.0.1",
-    "description": "我的typescript项目模板",
-    "icon": "./asset/img/logo/logo.ico",
+    "description": "使用 echarts 做的一个数据可视化工具",
+    "icon": "./asset/img/logo/logo_512.ico",
     "main": "./bin/index.js",
     "scripts": {
         "start": "electron .",
@@ -18,19 +18,16 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/mx601595686/my-electron-template.git"
+        "url": "git+https://github.com/mx601595686/deep-finance-chart.git"
     },
     "bugs": {
-        "url": "https://github.com/mx601595686/my-electron-template/issues"
+        "url": "https://github.com/mx601595686/deep-finance-chart/issues"
     },
-    "homepage": "https://github.com/mx601595686/my-electron-template#readme",
+    "homepage": "https://github.com/mx601595686/deep-finance-chart#readme",
     "devDependencies": {
-        "@types/classnames": "^2.2.3",
         "@types/jquery": "^3.2.17",
         "@types/lodash": "^4.14.85",
         "@types/node": "^7.0.13",
-        "@types/react": "^16.0.31",
-        "@types/react-dom": "^16.0.3",
         "electron-packager": "^10.1.1",
         "gulp": "^3.9.1",
         "gulp-concat": "^2.6.1",
@@ -41,11 +38,8 @@
         "typescript": "^2.5.2"
     },
     "dependencies": {
-        "classnames": "^2.2.5",
         "electron": "^1.7.10",
         "jquery": "^3.2.1",
-        "lodash": "^4.17.4",
-        "react": "^16.2.0",
-        "react-dom": "^16.2.0"
+        "lodash": "^4.17.4"
     }
 }

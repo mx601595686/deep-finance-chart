@@ -22,7 +22,7 @@ function createWindow() {
         minHeight: 600,
         fullscreenable: true,
         title: package_json.name,
-        icon: path.resolve(__dirname, '..', package_json.icon)
+        icon: path.resolve(__dirname, '../asset/img/logo/logo_64.png')
     });
 
     // and load the index.html of the app.
