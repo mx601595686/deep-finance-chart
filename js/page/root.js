@@ -52,7 +52,7 @@ function openJS(path) {
         label: '打开程序', click() {
             dialog.showOpenDialog(win, { filters: [{ name: 'js', extensions: ['js'] }] }, function (filePaths) {
                 if (filePaths.length > 0) {
-                    openjs(filePaths[0]);
+                    openJS(filePaths[0]);
                 }
             });
         }
@@ -70,10 +70,15 @@ function openJS(path) {
     win.setMenu(menu);
 })();
 
+//大小变化回调列表
+let split_resize = [];
 //布局
 (function layout() {
-    split(['#table', '#chart'], {
-        minSize: 0
+    split_instance = split(['#table', '#chart'], {
+        minSize: 0,
+        onDragEnd() {
+            split_resize.forEach(item => item())
+        }
     });
 })();
 
@@ -109,5 +114,20 @@ let charts;
     window.df.loadChartData = function (obj) {
         charts.setOption(obj);
     }
+
+    let timer;
+    $(window).resize(function () {
+        if (charts) {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                charts.resize();
+            }, 10);
+        }
+    });
+
+    split_resize.push(function () {
+        if (charts)
+            charts.resize();
+    });
 })();
 
