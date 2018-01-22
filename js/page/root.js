@@ -97,11 +97,25 @@ let split_resize = [];
     }); */
 
     //向表中添加数据
-    window.df.loadTableData = function (columns, data) {
-        $('#table table').DataTable({
+    window.df.loadTableData = function (columns, data, onRowClick) {
+        const table = $('#table table').DataTable({
             data,
             columns: columns.map(item => ({ title: item }))
         });
+
+        if (onRowClick) {
+            $('#table table').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+
+                let data = table.row(this).data();
+                onRowClick(data);
+            });
+        }
     }
 })();
 
