@@ -2,7 +2,7 @@
     "name": "deep-finance-chart",
     "version": "0.0.1",
     "description": "使用 echarts 做的一个数据可视化工具",
-    "icon": "./asset/img/logo/logo_512.ico",
+    "icon": "./img/logo/logo_512.ico",
     "main": "./js/index.js",
     "scripts": {
         "start": "electron .",
