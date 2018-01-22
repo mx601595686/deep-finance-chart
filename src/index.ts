@@ -17,6 +17,7 @@ function createWindow() {
         frame: true,
         resizable: true,
         transparent: false,
+        autoHideMenuBar: false,
         center: true,
         minWidth: 800,
         minHeight: 600,
@@ -24,6 +25,8 @@ function createWindow() {
         title: package_json.name,
         icon: path.resolve(__dirname, '../asset/img/logo/logo_64.png')
     });
+
+    mainWindow.setMenu(null);
 
     // and load the index.html of the app.
     mainWindow.loadURL(url.format({
