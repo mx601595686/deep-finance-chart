@@ -13,7 +13,7 @@ gulp.task('package_electron', function (done) {
         platform: 'win32',
         arch: 'x64',
         asar: false,
-        prune: true,    //在有些版本的npm下肯能会失败
+        prune: false,    //在有些版本的npm下肯能会失败
         icon: package_json.icon && path.resolve(__dirname, package_json.icon),
         ignore: '/\\.vscode|electron_build|release|gulpfile\\.js($|/)',    //打包时忽略
         download: {
