@@ -1,15 +1,17 @@
-import { app, BrowserWindow, screen } from 'electron';
-import * as path from 'path';
-import * as url from 'url';
-
+const electron = require('electron');
+const path = require('path');
+const url = require('url');
 const package_json = require('../package.json');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow: BrowserWindow;
+let mainWindow;
+
+const { app, BrowserWindow } = electron;
 
 function createWindow() {
-    const displaySize = screen.getPrimaryDisplay().size;
+
+    const displaySize = electron.screen.getPrimaryDisplay().size;
 
     mainWindow = new BrowserWindow({
         width: displaySize.width * 0.7,
@@ -23,14 +25,14 @@ function createWindow() {
         minHeight: 600,
         fullscreenable: true,
         title: package_json.name,
-        icon: path.resolve(__dirname, '../asset/img/logo/logo_64.png')
+        icon: path.resolve(__dirname, '../img/logo/logo_64.png')
     });
 
     mainWindow.setMenu(null);
 
     // and load the index.html of the app.
     mainWindow.loadURL(url.format({
-        pathname: path.resolve(__dirname, '../asset/html/index.html'),
+        pathname: path.resolve(__dirname, '../html/index.html'),
         protocol: 'file:',
         slashes: true
     }));
@@ -43,7 +45,7 @@ function createWindow() {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
-        mainWindow = null as any;
+        mainWindow = null;
     });
 }
 

@@ -4,11 +4,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "编译",
-            "type": "shell",
-            "command": "npm run compile"
-        },
-        {
             "label": "打包",
             "type": "shell",
             "command": "npm run package"
