@@ -15,7 +15,7 @@ gulp.task('package_electron', function (done) {
         asar: false,
         prune: false,    //在有些版本的npm下肯能会失败
         icon: package_json.icon && path.resolve(__dirname, package_json.icon),
-        ignore: '/\\.vscode|electron_build|release|gulpfile\\.js($|/)',    //打包时忽略
+        ignore: '/\\.vscode|electron_build|release|test|gulpfile\\.js($|/)',    //打包时忽略
         download: {
             cache: path.resolve(__dirname, './electron_build'),
             mirror: 'https://npm.taobao.org/mirrors/electron/'
