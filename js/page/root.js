@@ -46,7 +46,7 @@ function openJS(path) {
 
     const openFile = new MenuItem({
         label: '打开程序', click() {
-            dialog.showOpenDialog(win, { filters: [{ name: 'js', extensions: ['js'] }] }, function (filePaths) {
+            dialog.showOpenDialog(win, { filters: [{ name: 'js', extensions: ['js'] }] }, function (filePaths = []) {
                 if (filePaths.length > 0) {
                     openJS(filePaths[0]);
                 }
