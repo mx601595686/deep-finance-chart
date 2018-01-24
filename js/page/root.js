@@ -54,6 +54,25 @@ function openJS(path) {
         }
     });
 
+    setTimeout(() => {  //重新运行之前保存的js文件
+        const jsFilePath = sessionStorage['jsFilePath'];
+        if (jsFilePath) {
+            sessionStorage.removeItem('jsFilePath')
+            openJS(jsFilePath);
+        }
+    }, 1);
+
+    const restart = new MenuItem({
+        label: '重新运行', click() {
+            if (jsFilePath) {
+                sessionStorage['jsFilePath'] = jsFilePath;
+                win.reload();
+            } else {
+                dialog.showErrorBox('请先打开一个js文件', '');
+            }
+        }
+    });
+
     const openDev = new MenuItem({
         label: '打开调试', click() {
             win.webContents.openDevTools();
@@ -61,6 +80,7 @@ function openJS(path) {
     });
 
     menu.append(openFile);
+    menu.append(restart);
     menu.append(openDev);
 
     win.setMenu(menu);
