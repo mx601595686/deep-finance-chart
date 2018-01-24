@@ -94,12 +94,10 @@ let split_resize = [];
     }); */
 
     //向表中添加数据
-    window.df.loadTableData = async function (func) {
-        try {
-            $('#table .loading').show();
+    window.df.loadTableData = function (func) {
+        $('#table .loading').show();
 
-            const { columns, data, onRowClick } = await func();
-
+        func().then(({ columns, data, onRowClick }) => {
             const table = $('#table table').DataTable({
                 data,
                 columns: columns.map(item => ({ title: item }))
@@ -118,11 +116,12 @@ let split_resize = [];
                     onRowClick(data);
                 });
             }
-        } catch (error) {
-            throw error;
-        } finally {
+
             $('#table .loading').hide();
-        }
+        }).catch(err => {
+            $('#table .loading').hide();
+            throw err;
+        });
     }
 })();
 
@@ -131,16 +130,16 @@ let split_resize = [];
     const charts = echarts.init($('#chart')[0]);
 
     window.df.loadChartData = function (func) {
-        try {
-            charts.clear();
-            chart.showLoading();
+        charts.clear();
+        charts.showLoading();
 
-            charts.setOption(await func(), true);
-        } catch (error) {
-            throw error;
-        } finally {
-            chart.hideLoading();
-        }
+        func().then(obj => {
+            charts.setOption(obj, true);
+            charts.hideLoading();
+        }).catch(err => {
+            charts.hideLoading();
+            throw err;
+        });
     }
 
     let timer;
