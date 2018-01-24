@@ -9,9 +9,8 @@ const { Menu, MenuItem, dialog } = remote;
 
 window.df = {};
 
-let jsFilePath;
-
 //打开JS文件
+let jsFilePath;
 function openJS(path) {
     if (jsFilePath == null) {
         if (path) {
@@ -43,10 +42,7 @@ function openJS(path) {
 
 //窗口菜单
 (function menu() {
-
-
     const menu = new Menu();
-    let jsFilePath;
 
     const openFile = new MenuItem({
         label: '打开程序', click() {
@@ -70,8 +66,9 @@ function openJS(path) {
     win.setMenu(menu);
 })();
 
-//大小变化回调列表
+//窗口大小变化回调列表
 let split_resize = [];
+
 //布局
 (function layout() {
     split_instance = split(['#table', '#chart'], {
@@ -97,51 +94,65 @@ let split_resize = [];
     }); */
 
     //向表中添加数据
-    window.df.loadTableData = function (columns, data, onRowClick) {
-        const table = $('#table table').DataTable({
-            data,
-            columns: columns.map(item => ({ title: item }))
-        });
+    window.df.loadTableData = async function (func) {
+        try {
+            $('#table .loading').show();
 
-        if (onRowClick) {
-            $('#table table').on('click', 'tr', function () {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                } else {
-                    table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
+            const { columns, data, onRowClick } = await func();
 
-                let data = table.row(this).data();
-                onRowClick(data);
+            const table = $('#table table').DataTable({
+                data,
+                columns: columns.map(item => ({ title: item }))
             });
+
+            if (onRowClick) {
+                $('#table table').on('click', 'tr', function () {
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                    } else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+
+                    let data = table.row(this).data();
+                    onRowClick(data);
+                });
+            }
+        } catch (error) {
+            throw error;
+        } finally {
+            $('#table .loading').hide();
         }
     }
 })();
 
 //图表加载数据
-let charts;
 (function chart() {
-    if (charts == null)
-        charts = echarts.init($('#chart')[0]);
+    const charts = echarts.init($('#chart')[0]);
 
-    window.df.loadChartData = function (obj) {
-        charts.setOption(obj);
+    window.df.loadChartData = function (func) {
+        try {
+            charts.clear();
+            chart.showLoading();
+
+            charts.setOption(await func(), true);
+        } catch (error) {
+            throw error;
+        } finally {
+            chart.hideLoading();
+        }
     }
 
     let timer;
     $(window).resize(function () {
-        if (charts) {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                charts.resize();
-            }, 10);
-        }
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            charts.resize();
+        }, 500);
     });
 
     split_resize.push(function () {
-        if (charts)
-            charts.resize();
+        charts.resize();
     });
 })();
 
