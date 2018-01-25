@@ -79,9 +79,24 @@ function openJS(path) {
         }
     });
 
+    let alwaysOnTop = win.isAlwaysOnTop();
+    const fixWindow = new MenuItem({
+        label: '固定或取消固定窗口',
+        click() {
+            if (alwaysOnTop) {
+                alwaysOnTop = false;
+                win.setAlwaysOnTop(false);
+            } else {
+                alwaysOnTop = true;
+                win.setAlwaysOnTop(true);
+            }
+        }
+    });
+
     menu.append(openFile);
     menu.append(restart);
     menu.append(openDev);
+    menu.append(fixWindow);
 
     win.setMenu(menu);
 })();
