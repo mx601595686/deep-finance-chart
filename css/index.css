@@ -33,6 +33,10 @@ html {
 
 .split {
     box-sizing: border-box;
+    overflow: hidden;
+}
+
+#table.split {
     overflow: auto;
 }
 
