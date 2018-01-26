@@ -18,7 +18,8 @@ function openJS(path) {
             require(path);  //加载程序
         }
     } else {
-        dialog.showErrorBox('不可以重复加载js文件', '');
+        sessionStorage['jsFilePath'] = path;
+        win.reload();
     }
 }
 
