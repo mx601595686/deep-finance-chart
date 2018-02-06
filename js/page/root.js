@@ -134,7 +134,7 @@ let split_resize = [];
         $('#table .loading').show();
 
         func().then(({ columns, data, onRowClick }) => {
-            $('#table table').remove()
+            $("#table > :not(.loading)").remove();
             $('#table').prepend('<table width="100%"></table>');
 
             const table = $('#table table').DataTable({
