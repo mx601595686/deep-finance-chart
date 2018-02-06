@@ -1,5 +1,4 @@
-
-window.df.loadTableData(() => {
+window.testLoadTableData = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve({
@@ -11,7 +10,9 @@ window.df.loadTableData(() => {
             });
         }, 3000);
     });
-});
+}
+
+window.df.loadTableData(window.testLoadTableData);
 
 window.df.loadChartData(() => {
     return new Promise((resolve, reject) => {

@@ -134,13 +134,17 @@ let split_resize = [];
         $('#table .loading').show();
 
         func().then(({ columns, data, onRowClick }) => {
+            $('#table table').remove()
+            $('#table').prepend('<table width="100%"></table>');
+
             const table = $('#table table').DataTable({
+                pageLength: 100,
                 data,
                 columns: columns.map(item => ({ title: item }))
             });
 
             if (onRowClick) {
-                $('#table table').on('click', 'tr', function () {
+                table.on('click', 'tr', function () {
                     if ($(this).hasClass('selected')) {
                         $(this).removeClass('selected');
                     } else {
