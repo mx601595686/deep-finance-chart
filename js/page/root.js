@@ -169,6 +169,10 @@ let split_resize = [];
 (function chart() {
     const charts = echarts.init($('#chart')[0]);
 
+    window.df.getChartInstance = function () {
+        return charts;
+    }
+
     window.df.loadChartData = function (func) {
         charts.clear();
         charts.showLoading();
